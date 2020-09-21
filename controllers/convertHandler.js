@@ -20,16 +20,41 @@ function ConvertHandler() {
     return num;
   };
   
-  this.getUnit = function(input) {
-    var result;
+  this.getUnit = function(_input) {
+    const input = this.sanitize(_input);
     
-    return result;
+    const indexOfUnitStart = input.search(/[a-zA-Z]/i);
+    const unitInput = input.slice(indexOfUnitStart);
+
+    const validInputs = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG']
+    const isInvalidInput = !validInputs.includes(unitInput)
+    
+    if (isInvalidInput) {
+      throw Error('Not a valid unit input')
+    }
+    
+    return unitInput;
   };
   
-  this.getReturnUnit = function(initUnit) {
-    var result;
-    
-    return result;
+  this.getReturnUnit = function(_initUnit) {
+    const input = this.sanitize(_initUnit);
+
+    switch(input) {
+      case 'gal':
+        return 'l'
+      case 'l':
+        return 'gal'
+      case 'mi':
+        return 'km'
+      case 'km':
+        return 'mi'
+      case 'lbs':
+        return 'kg'
+      case 'kg':
+        return 'lbs'
+      default:
+        throw Error('Invalid initUnit');
+    }    
   };
 
   this.spellOutUnit = function(unit) {

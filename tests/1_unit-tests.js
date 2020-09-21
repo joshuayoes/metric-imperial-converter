@@ -62,16 +62,22 @@ suite('Unit Tests', function(){
   suite('Function convertHandler.getUnit(input)', function() {
     
     test('For Each Valid Unit Inputs', function(done) {
-      var input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
+      const input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele) {
-        //assert
+        const result = convertHandler.getUnit(ele);
+        assert.equal(result, ele)
       });
       done();
     });
     
     test('Unknown Unit Input', function(done) {
-      
-      //done();
+      const input = ['dskljdf', 'askdj', 'lk39d']
+
+      input.forEach(function(ele) {
+        assert.Throw(() => convertHandler.getUnit(ele))
+      });
+
+      done();
     });  
     
   });
