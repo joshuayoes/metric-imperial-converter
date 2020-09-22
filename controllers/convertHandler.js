@@ -11,7 +11,7 @@ const math = require('mathjs')
 function ConvertHandler() {
   
   this.getNum = function(_input) {
-    const input = this.sanitize(_input);
+    const input = this.sanitizeString(_input);
 
     const indexOfUnitStart = input.search(/[a-zA-Z]/i);
     const numberInput = input.slice(0, indexOfUnitStart)
@@ -21,7 +21,7 @@ function ConvertHandler() {
   };
   
   this.getUnit = function(_input) {
-    const input = this.sanitize(_input);
+    const input = this.sanitizeString(_input);
     
     const indexOfUnitStart = input.search(/[a-zA-Z]/i);
     const unitInput = input.slice(indexOfUnitStart);
@@ -37,7 +37,7 @@ function ConvertHandler() {
   };
   
   this.getReturnUnit = function(_initUnit) {
-    const input = this.sanitize(_initUnit);
+    const input = this.sanitizeString(_initUnit);
 
     switch(input) {
       case 'gal':
@@ -57,19 +57,52 @@ function ConvertHandler() {
     }    
   };
 
-  this.spellOutUnit = function(unit) {
-    var result;
-    
-    return result;
+  this.spellOutUnit = function(_unit) {
+    const input = this.sanitizeString(_unit);
+
+    switch(input) {
+      case 'gal':
+        return 'gallon';
+      case 'l':
+        return 'liter';
+      case 'mi':
+        return 'mile';
+      case 'km':
+        return 'kilometer';
+      case 'lbs':
+        return 'pounds';
+      case 'kg':
+        return 'kilogram'
+      default:
+        throw Error('Invalid unit') 
+    }
+
   };
   
-  this.convert = function(initNum, initUnit) {
+  this.convert = function(_initNum, _initUnit) {
+    const initUnit = this.sanitizeString(_initUnit);
+    const initNum = this.sanitizeNumber(_initNum);
+
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
-    var result;
     
-    return result;
+    switch (initUnit) {
+      case 'gal':
+        return initNum * galToL;
+      case 'l':
+        return initNum / galToL;
+      case 'mi':
+        return initNum * miToKm;
+      case 'km':
+        return initNum / miToKm;
+      case 'lbs':
+        return initNum * lbsToKg;
+      case 'kg':
+        return initNum / lbsToKg;
+      default:
+        throw Error('Invalid initNnit')
+    }    
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
@@ -78,12 +111,20 @@ function ConvertHandler() {
     return result;
   };
 
-  this.sanitize = function(input) {
+  this.sanitizeString = function(input) {
     if (typeof input !== 'string') {
       throw Error('Only strings are allowed as inputs')
     }
 
     return input
+  }
+
+  this.sanitizeNumber = function(input) {
+    if (typeof input !== 'number') {
+      throw Error('Only numbers are allowed as inputs')
+    }
+
+    return input;
   }
 }
 
