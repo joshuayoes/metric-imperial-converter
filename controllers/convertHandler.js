@@ -86,20 +86,22 @@ function ConvertHandler() {
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
+
+    const decimal = (number) => Number((number).toFixed(5));
     
     switch (initUnit) {
       case 'gal': case 'GAL':
-        return initNum * galToL;
+        return decimal(initNum * galToL);
       case 'l': case 'L':
-        return initNum / galToL;
+        return decimal(initNum / galToL);
       case 'mi': case 'MI':
-        return initNum * miToKm;
+        return decimal(initNum * miToKm);
       case 'km': case 'KM':
-        return initNum / miToKm;
+        return decimal(initNum / miToKm);
       case 'lbs': case 'LBS':
-        return initNum * lbsToKg;
+        return decimal(initNum * lbsToKg);
       case 'kg': case 'kg':
-        return initNum / lbsToKg;
+        return decimal(initNum / lbsToKg);
       default:
         throw Error('Invalid initUnit')
     }    
