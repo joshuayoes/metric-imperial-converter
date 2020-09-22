@@ -23,7 +23,6 @@ module.exports = function (app) {
       try {
         initUnit = convertHandler.getUnit(input);
       } catch {
-        res.status(400)
         res.send('invalid unit')
         return
       }

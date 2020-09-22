@@ -40,7 +40,6 @@ suite('Functional Tests', function() {
           .get('/api/convert')
           .query({input: '32g'})
           .end(function(err, res){
-            assert.equal(res.status, 400);
             assert.equal(res.text, 'invalid unit')
             done();
           }); 
