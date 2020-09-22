@@ -70,7 +70,7 @@ function ConvertHandler() {
       case 'km': case 'KM':
         return 'kilometer';
       case 'lbs': case 'LBS':
-        return 'pounds';
+        return 'pound';
       case 'kg': case 'kg':
         return 'kilogram'
       default:
@@ -105,10 +105,19 @@ function ConvertHandler() {
     }    
   };
   
-  this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    var result;
+  this.getString = function(_initNum, _initUnit, _returnNum, _returnUnit) {
+    const initNum = this.sanitizeNumber(_initNum);
+    const returnNum = this.sanitizeNumber(_returnNum);
+    const initUnit = this.sanitizeString(_initUnit);
+    const returnUnit = this.sanitizeString(_returnUnit);
+
+    const _preunit = this.spellOutUnit(initUnit);
+    const preunit = initNum == 1 ? _preunit : _preunit + 's';
     
-    return result;
+    const _postunit = this.spellOutUnit(returnUnit);
+    const postunit = returnNum == 1 ? _postunit : _postunit + 's';
+    
+    return `${initNum} ${preunit} converts to ${returnNum} ${postunit}`;
   };
 
   this.sanitizeString = function(input) {
