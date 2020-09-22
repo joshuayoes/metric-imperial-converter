@@ -19,8 +19,15 @@ module.exports = function (app) {
     .get(function (req, res){
       const input = req.query.input;
 
+      let initUnit;
+      try {
+        initUnit = convertHandler.getUnit(input);
+      } catch {
+        res.status(400)
+        res.send('invalid input')
+        return
+      }
       const initNum = convertHandler.getNum(input);
-      const initUnit = convertHandler.getUnit(input);
       const returnNum = convertHandler.convert(initNum, initUnit);
       const returnUnit = convertHandler.getReturnUnit(initUnit);
       const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
