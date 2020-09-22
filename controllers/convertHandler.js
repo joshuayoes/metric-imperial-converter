@@ -40,17 +40,17 @@ function ConvertHandler() {
     const input = this.sanitizeString(_initUnit);
 
     switch(input) {
-      case 'gal':
+      case 'gal': case 'GAL':
         return 'l'
-      case 'l':
+      case 'l': case 'L':
         return 'gal'
-      case 'mi':
+      case 'mi': case 'MI':
         return 'km'
-      case 'km':
+      case 'km': case 'KM':
         return 'mi'
-      case 'lbs':
+      case 'lbs': case 'LBS':
         return 'kg'
-      case 'kg':
+      case 'kg': case 'kg':
         return 'lbs'
       default:
         throw Error('Invalid initUnit');
@@ -61,17 +61,17 @@ function ConvertHandler() {
     const input = this.sanitizeString(_unit);
 
     switch(input) {
-      case 'gal':
+      case 'gal': case 'GAL':
         return 'gallon';
-      case 'l':
+      case 'l': case 'L':
         return 'liter';
-      case 'mi':
+      case 'mi': case 'MI':
         return 'mile';
-      case 'km':
+      case 'km': case 'KM':
         return 'kilometer';
-      case 'lbs':
+      case 'lbs': case 'LBS':
         return 'pounds';
-      case 'kg':
+      case 'kg': case 'kg':
         return 'kilogram'
       default:
         throw Error('Invalid unit') 
@@ -88,20 +88,20 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     
     switch (initUnit) {
-      case 'gal':
+      case 'gal': case 'GAL':
         return initNum * galToL;
-      case 'l':
+      case 'l': case 'L':
         return initNum / galToL;
-      case 'mi':
+      case 'mi': case 'MI':
         return initNum * miToKm;
-      case 'km':
+      case 'km': case 'KM':
         return initNum / miToKm;
-      case 'lbs':
+      case 'lbs': case 'LBS':
         return initNum * lbsToKg;
-      case 'kg':
+      case 'kg': case 'kg':
         return initNum / lbsToKg;
       default:
-        throw Error('Invalid initNnit')
+        throw Error('Invalid initUnit')
     }    
   };
   
@@ -116,7 +116,7 @@ function ConvertHandler() {
       throw Error('Only strings are allowed as inputs')
     }
 
-    return input
+    return input;
   }
 
   this.sanitizeNumber = function(input) {
