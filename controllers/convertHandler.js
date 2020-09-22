@@ -15,6 +15,12 @@ function ConvertHandler() {
 
     const indexOfUnitStart = input.search(/[a-zA-Z]/i);
     const numberInput = input.slice(0, indexOfUnitStart)
+
+    const isInvalidNumberExpression = [...numberInput].filter(n => n === '/').length > 1;
+    if (isInvalidNumberExpression) {
+      throw Error('Cannot double fraction inside number expression');
+    } 
+
     const numberExpression = !!numberInput ? numberInput : 1;
     const num = math.evaluate(numberExpression);
     return num;

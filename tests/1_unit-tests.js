@@ -45,7 +45,7 @@ suite('Unit Tests', function(){
     });
     
     test('Invalid Input (double fraction)', function(done) {
-      const input = '5.4//3lbs';
+      const input = '3/7.2/4kg';
       assert.Throw(() => convertHandler.getNum(input));
       done();
     });
